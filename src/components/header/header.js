@@ -14,7 +14,6 @@ const Header = () => {
                 <Link href='#' title='Going to 6' type="header" />
                 <Link href='#' title='Going to 7' type="header" />
                 <Link href='#' title='Going to 8' type="header" />
-                <Link href='#' title='Going to 9' type="header" />
             </ul>
         </header>
     )
