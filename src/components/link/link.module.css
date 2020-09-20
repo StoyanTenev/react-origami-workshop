@@ -25,7 +25,7 @@
     font-weight: bold;
 }
 
-/* .footer-listItem a {
+.footer-listItem a {
     color: #234465;
     text-decoration: none;
 }
@@ -56,6 +56,7 @@
     font-weight: bold;
 }
 
+
 .aside-listItem {
     display: block;
     width: 98%;
@@ -82,4 +83,4 @@
     border-top: 2px solid #234465;
     border-bottom: 2px solid #234465;
     color: #ffa000;
-} */
+}
