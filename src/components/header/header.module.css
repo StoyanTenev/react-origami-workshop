@@ -8,3 +8,11 @@
     border-bottom: 2px solid #ffa000;
     border-top: 2px solid #ffa000;
 }
+
+.headerLogo {
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+    margin-left: 15px;
+    margin-top: 10px;
+}
