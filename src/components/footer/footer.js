@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from '../link/link'
 import styles from './footer.module.css'
-
+import image from '../../images/blue-origami-bird-flipped.png'
 const Footer = () => {
     return (
         <footer className={styles.footer}>
@@ -14,6 +14,11 @@ const Footer = () => {
                 <Link href='#' title='Going to 6' type="footer" />
                 <Link href='#' title='Going to 7' type="footer" />
                 <Link href='#' title='Going to 8' type="footer" />
+                <Link href='#' title='Going to 9' type="footer" />
+                <Link href='#' title='Going to 10' type="footer" />
+                <Link href='#' title='Going to 11' type="footer" />
+                <img className={styles.footerLogo} src={image} alt="logo" />
+                <p>Software University &copy; 2020</p>
             </ul>
         </footer>
     )
