@@ -10,10 +10,10 @@ const Origam = ({ description, author }) => {
                 {description}
             </p>
             <div className={styles['origam-div']}>
-                <spna className={styles.author}>
+                <span className={styles.author}>
                     <small>Author: </small>
                     {author.username}
-                </spna>
+                </span>
             </div>
         </div>
     )
