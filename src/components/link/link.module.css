@@ -9,8 +9,9 @@
     margin-right: 2%;
     cursor: pointer;
     padding: 0.5%;
-    margin: 0.1%;
+    margin: 0.3%;
     vertical-align: top;
+    text-align: center;
 }
 
 .header-listItem:not(:first-child) {
@@ -36,8 +37,9 @@
     margin-right: 2%;
     cursor: pointer;
     padding: 1px;
-    margin: 0.1%;
+    margin: 0.3%;
     vertical-align: top;
+    text-align: center;
 }
 
 .footer-listItem:nth-child(1) {

@@ -1,27 +1,37 @@
-import React from 'react'
-import Link from '../link/link'
+import React, { Component } from 'react'
+import LinkComponet from '../link/Link'
+import getNavigation from '../../utils/navigation'
 import styles from './header.module.css'
 import image from '../../images/white-origami-bird.png'
+import UserContext from '../../Context'
+import { Link } from 'react-router-dom'
 
-const Header = () => {
-    return (
-        <header className={styles.navigation}>
-            <ul>
-                <img className={styles.headerLogo} src={image} alt='logo' />
-                <Link href='#' title='Going to 1' type="header" />
-                <Link href='#' title='Going to 2' type="header" />
-                <Link href='#' title='Going to 3' type="header" />
-                <Link href='#' title='Going to 4' type="header" />
-                <Link href='#' title='Going to 5' type="header" />
-                <Link href='#' title='Going to 6' type="header" />
-                <Link href='#' title='Going to 7' type="header" />
-                <Link href='#' title='Going to 8' type="header" />
-                <Link href='#' title='Going to 9' type="header" />
-                <Link href='#' title='Going to 10' type="header" />
-                <Link href='#' title='Going to 11' type="header" />
-            </ul>
-        </header>
-    )
+class Header extends Component {
+    static contextType = UserContext
+
+    render() {
+        const links = getNavigation(this.context.user)
+
+        return (
+            <header className={styles.navigation} >
+                <Link to='/'>
+                    <img className={styles.headerLogo} src={image} alt='logo' />
+                </Link>
+                {
+                    links.map(navElement => {
+                        return (
+                            <LinkComponet
+                                key={navElement.title}
+                                href={navElement.link}
+                                title={navElement.title}
+                                type='header'
+                            />
+                        )
+                    })
+                }
+            </header>
+        )
+    }
 }
 
 export default Header

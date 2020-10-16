@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import styles from './origamis.module.css'
-import Origam from '../origam/origam'
+import styles from './publications.module.css'
+import Origam from '../../components/origam/Origam'
+import PageLayout from '../../components/pageLayout/PageLayout'
 
-class Origamis extends Component {
+class Publications extends Component {
     constructor(props) {
         super(props)
 
@@ -18,7 +19,7 @@ class Origamis extends Component {
 
         this.setState({
             origamis
-          })
+        })
     }
 
     renderOrigamis = () => {
@@ -37,16 +38,18 @@ class Origamis extends Component {
 
     render() {
         return (
-            <div className={styles.container}>
-                <h1 className={styles.h1}>
-                    Origamis
+            <PageLayout>
+                <main className={styles.main}>
+                    <h1 className={styles.h1}>
+                        Publications
                 </h1>
-                <div>
-                    {this.renderOrigamis()}
-                </div>
-            </div>
+                    <div>
+                        {this.renderOrigamis()}
+                    </div>
+                </main>
+            </PageLayout>
         )
     }
 }
 
-export default Origamis
+export default Publications

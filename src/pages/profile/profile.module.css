@@ -1,0 +1,23 @@
+.container {
+    display: inline-block;
+    width: 85%;
+    margin: 5% 1%;
+}
+
+.profileImg {
+    width: 15%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+p {
+    display: block;
+    text-align: center;
+    margin: 2%;
+}
+
+button {
+    display: inline-block;
+    margin: 0.5% 31%;
+}

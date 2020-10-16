@@ -1,18 +1,18 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom'
 import styles from './app.module.css';
-import Header from './components/header/header'
-import Aside from './components/aside/aside'
-import Footer from './components/footer/footer'
-import Origamis from './components/origamis/origamis'
+import Authenticate from './Authenticate';
+import Navigation from './Navigation';
 
 const App = () => {
   return (
     <div className={styles.app}>
       <div className={styles.container}>
-        <Header />
-        <Aside />
-        <Origamis/>
-        <Footer />
+        <Authenticate>
+          <BrowserRouter>
+            <Navigation />
+          </BrowserRouter>
+        </Authenticate>
       </div>
     </div>
   );

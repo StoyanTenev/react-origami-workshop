@@ -1,7 +1,8 @@
 .aside {
     display: inline-block;
     width: 10%;
+    height: auto;
     margin-right: 1%;
-    height: 89.5vh;
+    height: auto;
     vertical-align: top;
 }

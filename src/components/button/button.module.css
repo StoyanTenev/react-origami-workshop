@@ -1,0 +1,18 @@
+.button {
+    display: inline-block;
+    border-radius: 8px;
+    background-color: #234465;
+    color: aliceblue;
+    text-align: center;
+    font-size: 18px;
+    padding: 1vh;
+    margin: 1vh;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #fff;
+    border: 2px solid #234465;
+    color: #234465;
+    font-style: italic;
+}

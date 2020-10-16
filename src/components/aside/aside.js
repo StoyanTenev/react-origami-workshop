@@ -1,27 +1,34 @@
-import React from 'react'
-import Link from '../link/link'
+import React, {Component} from 'react'
+import UserContext from '../../Context'
+import getNavigation from '../../utils/navigation'
+import LinkComponet from '../link/Link'
 import styles from './aside.module.css'
 
-const Aside = () => {
-    return (
-        <aside className={styles.aside}>
-            <ul>
-                <Link href='#' title='Going to 1' type="aside" />
-                <Link href='#' title='Going to 2' type="aside" />
-                <Link href='#' title='Going to 3' type="aside" />
-                <Link href='#' title='Going to 4' type="aside" />
-                <Link href='#' title='Going to 5' type="aside" />
-                <Link href='#' title='Going to 6' type="aside" />
-                <Link href='#' title='Going to 7' type="aside" />
-                <Link href='#' title='Going to 8' type="aside" />
-                <Link href='#' title='Going to 9' type="aside" />
-                <Link href='#' title='Going to 10' type="aside" />
-                <Link href='#' title='Going to 11' type="aside" />
-            </ul>
-        </aside>
-    )
-}
 
+
+class Aside extends Component {
+    static contextType = UserContext
+    render() {
+             const links = getNavigation(this.context.user)
+
+        return (
+            <aside className={styles.aside} >
+                {
+                    links.map(navElement => {
+                        return (
+                            <LinkComponet
+                                key={navElement.title}
+                                href={navElement.link}
+                                title={navElement.title}
+                                type='aside'
+                            />
+                        )
+                    })
+                }
+            </aside>
+        )
+    }
+}
 
 
 
