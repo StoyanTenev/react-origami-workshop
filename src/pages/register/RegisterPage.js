@@ -1,49 +1,24 @@
-import React, { Component } from 'react'
+import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import styles from './register.module.css'
 import Input from '../../components/input/Input'
 import Button from '../../components/button/Button'
 import PageLayout from '../../components/pageLayout/PageLayout'
 import UserContext from '../../Context'
 
+const Register = () => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [rePassword, setRePassword] = useState('')
+    const context = useContext(UserContext)
+    const history = useHistory()
 
-class Register extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            email: '',
-            password: '',
-            rePassword: ''
-        }
-    }
-
-    static contextType = UserContext;
-
-    changeEmail = (event) => {
-        this.setState({
-            email: event.target.value
-        })
-    }
-
-
-    changePassword = (event) => {
-        this.setState({
-            password: event.target.value
-        })
-    }
-
-    changeRePassword = (event) => {
-        this.setState({
-            rePassword: event.target.value
-        })
-    }
-
-    handleSubmmit = async (event) => {
+    const handleSubmmit = async (event) => {
         event.preventDefault()
 
         const body = {
-            "username": this.state.email,
-            "password": this.state.password
+            "username": email,
+            "password": password
         }
 
         const requestOptions = {
@@ -59,13 +34,14 @@ class Register extends Component {
             const authToken = response.headers.get('Authorization')
             document.cookie = `x-auth-token=${authToken}`
             const data = await response.json()
-            this.context.logIn({
+            context.logIn({
                 username: data.username,
-                id: data._id
+                id: data._id,
+                posts: data.posts
             })
 
             if (data.username && authToken) {
-                this.props.history.push('/')
+                history.push('/')
             }
         } catch (e) {
             console.log('ERROR: ', e);
@@ -74,57 +50,48 @@ class Register extends Component {
     }
 
 
-
-    render() {
-        const {
-            email,
-            password,
-            rePassword
-        } = this.state
-
-        return (
-            <PageLayout>
-                <div className={styles.register} >
-                    <h1>Register Page</h1>
-                    <form onSubmit={this.handleSubmmit}>
-                        <div className={styles['form-control']}>
-                            <Input
-                                id='email'
-                                type='email'
-                                value={email}
-                                label='Email'
-                                onChange={this.changeEmail}
-                                className={styles.input}
-                            />
-                        </div>
-                        <div className={styles['form-control']}>
-                            <Input
-                                id='password'
-                                type='password'
-                                value={password}
-                                label='Password'
-                                onChange={this.changePassword}
-                                className={styles.input}
-                            />
-                        </div>
-                        <div className={styles['form-control']}>
-                            <Input
-                                id='rePassword'
-                                type='password'
-                                value={rePassword}
-                                label='Re-Password'
-                                onChange={this.changeRePassword}
-                                className={styles.input}
-                            />
-                        </div>
-                        <div className={styles['form-control']}>
-                            <Button text='Register' type='submit' className={styles.button} />
-                        </div>
-                    </form>
-                </div>
-            </PageLayout>
-        )
-    }
+    return (
+        <PageLayout>
+            <div className={styles.register} >
+                <h1>Register Page</h1>
+                <form onSubmit={handleSubmmit}>
+                    <div className={styles['form-control']}>
+                        <Input
+                            id='email'
+                            type='email'
+                            value={email}
+                            label='Email'
+                            onChange={(event) => setEmail(event.target.value)}
+                            className={styles.input}
+                        />
+                    </div>
+                    <div className={styles['form-control']}>
+                        <Input
+                            id='password'
+                            type='password'
+                            value={password}
+                            label='Password'
+                            onChange={(event) => setPassword(event.target.value)}
+                            className={styles.input}
+                        />
+                    </div>
+                    <div className={styles['form-control']}>
+                        <Input
+                            id='rePassword'
+                            type='password'
+                            value={rePassword}
+                            label='Re-Password'
+                            onChange={(event) => setRePassword(event.target.value)}
+                            className={styles.input}
+                        />
+                    </div>
+                    <div className={styles['form-control']}>
+                        <Button text='Register' type='submit' className={styles.button} />
+                    </div>
+                </form>
+            </div>
+        </PageLayout>
+    )
 }
 
 export default Register
