@@ -4,7 +4,7 @@ import styles from './app.module.css';
 import Authenticate from './Authenticate';
 import Navigation from './Navigation';
 
-const App = () => {
+const App = (props) => {
   return (
     <div className={styles.app}>
       <div className={styles.container}>

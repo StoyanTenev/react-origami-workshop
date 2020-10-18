@@ -1,45 +1,42 @@
-import React, { Component } from 'react'
+import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import PageLayout from '../../components/pageLayout/PageLayout'
 import UserContext from '../../Context'
 import styles from './profile.module.css'
 import profileImg from '../../images/profile.png'
 import Origam from '../../components/origam/Origam'
 
-class Profile extends Component {
+const Profile = () => {
+    const context = useContext(UserContext)
+    const history = useHistory()
 
-    static contextType = UserContext
-
-    logOut = () => {
-        this.context.logOut()
-        this.props.history.push('/')
+    const logOut = () => {
+        context.logOut()
+        history.push('/')
     }
 
-    render() {
-
-        return (
-            <PageLayout>
-                <div className={styles.container}>
-                    <img className={styles.profileImg} src={profileImg} alt='Profile pic' />
-                    <p>User: {this.context.user.username}</p>
-                    <p>Posts: {this.context.user.posts.length}</p>
-                    <button onClick={this.logOut}>Logout</button>
-                    {
-                        this.context.user.posts.map(post => {
-                            return (
-                                <Origam
-                                    key={post._id}
-                                    author={{
-                                        username: this.context.user.username
-                                    }}
-                                    description={post.description} />
-                            )
-                        })
-                    }
-                </div>
-            </PageLayout>
-        )
-    }
-
+    return (
+        <PageLayout>
+            <div className={styles.container}>
+                <img className={styles.profileImg} src={profileImg} alt='Profile pic' />
+                <p>User: {context.user.username}</p>
+                <p>Posts: {context.user.posts.length}</p>
+                <button onClick={logOut}>Logout</button>
+                {
+                    context.user.posts.map(post => {
+                        return (
+                            <Origam
+                                key={post._id}
+                                author={{
+                                    username: context.user.username
+                                }}
+                                description={post.description} />
+                        )
+                    })
+                }
+            </div>
+        </PageLayout>
+    )
 }
 
 export default Profile

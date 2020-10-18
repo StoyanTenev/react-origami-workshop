@@ -1,55 +1,41 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './publications.module.css'
 import Origam from '../../components/origam/Origam'
 import PageLayout from '../../components/pageLayout/PageLayout'
 
-class Publications extends Component {
-    constructor(props) {
-        super(props)
+const Publications = () => {
+    const [origamis, setOrigamis] = useState([])
 
-        this.state = {
-            origamis: []
-        }
-
-    }
-
-    getOrigamis = async () => {
+    const getOrigamis = async () => {
         const response = await fetch('http://localhost:4000/api/origami')
         const origamis = await response.json()
 
-        this.setState({
-            origamis
-        })
+        setOrigamis(origamis)
     }
 
-    renderOrigamis = () => {
-        const { origamis } = this.state
-
+    const renderOrigamis = () => {
         return origamis.map(origam => {
             return (<Origam key={origam._id} {...origam} />
             )
         })
     }
 
-    componentDidMount() {
-        this.getOrigamis()
-    }
+    useEffect(() => {
+        getOrigamis()
+    }, [])
 
-
-    render() {
-        return (
-            <PageLayout>
-                <main className={styles.main}>
-                    <h1 className={styles.h1}>
-                        Publications
-                </h1>
-                    <div>
-                        {this.renderOrigamis()}
-                    </div>
-                </main>
-            </PageLayout>
-        )
-    }
+    return (
+        <PageLayout>
+            <main className={styles.main}>
+                <h1 className={styles.h1}>
+                    Publications
+            </h1>
+                <div>
+                    {renderOrigamis()}
+                </div>
+            </main>
+        </PageLayout>
+    )
 }
 
 export default Publications

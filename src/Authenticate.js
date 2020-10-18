@@ -1,36 +1,26 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import UserContext from './Context'
 
-class Authenticate extends Component {
-    constructor(props) {
-        super(props)
+const Authenticate = (props) => {
+    const [user, setUser] = useState({ loggedIn: false })
 
-        this.state = {
-            loggedIn: false,
-            user: null
-        }
-    }
-
-    logIn = (user) => {
-        this.setState({
+    const logIn = (user) => {
+        setUser({
+            ...user,
             loggedIn: true,
-            user
         })
     }
 
-    logOut = () => {
+    const logOut = () => {
         document.cookie = "x-auth-token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
-        this.setState({
-            loggedIn: false,
-            user: null
+        setUser({
+            loggedIn: false
         })
     }
 
-    async componentDidMount() {
+    useEffect(() => {
         const cookie = document.cookie.match('(^|;) ?x-auth-token=([^;]*)(;|$)') || '';
         const token = cookie[2]
-
-
         if (token) {
             const requestOptions = {
                 method: 'GET',
@@ -40,33 +30,31 @@ class Authenticate extends Component {
                 }
             }
 
-            try {
-                const response = await fetch('http://localhost:4000/api/user/verify-user', requestOptions)
-                const user = await response.json()
-                this.logIn(user)
-            } catch (e) {
-                console.log(e)
-            }
+            fetch('http://localhost:4000/api/user/verify-user', requestOptions)
+                .then(promise => promise.json())
+                .then(response => {
+                    logIn({
+                        username: response.username,
+                        id: response._id,
+                        posts: response.posts
+                    })
+                })
+                .catch(err => {
+                    console.error(err)
+                })
         }
-    }
+    }, [])
 
-    render() {
-        const {
-            loggedIn,
-            user
-        } = this.state
 
-        return (
-            <UserContext.Provider value={{
-                loggedIn,
-                user,
-                logIn: this.logIn,
-                logOut: this.logOut
-            }}>
-                {this.props.children}
-            </UserContext.Provider>
-        )
-    }
+    return (
+        <UserContext.Provider value={{
+            user,
+            logIn,
+            logOut
+        }}>
+            {props.children}
+        </UserContext.Provider>
+    )
 }
 
 export default Authenticate
